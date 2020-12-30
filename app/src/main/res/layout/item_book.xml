@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="book"
+            type="com.andyprojects.books.network.Book"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:padding="@dimen/small_padding">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="72dp"
+            android:layout_height="120dp"
+            android:scaleType="fitCenter"
+            app:imgUrl="@{book.volumeInfo.imageLinks.thumbnail}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:paddingStart="@dimen/small_padding"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@android:color/black"
+            app:bookTitle="@{book.volumeInfo.title}"
+            app:layout_constraintBottom_toTopOf="@+id/author_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            tools:text="Code Like A Teslim" />
+
+        <TextView
+            android:id="@+id/author_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:paddingStart="@dimen/small_padding"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:bookAuthors="@{book.volumeInfo.authors}"
+            app:layout_constraintBottom_toTopOf="@+id/publisher_text"
+            app:layout_constraintEnd_toEndOf="@+id/title_text"
+            app:layout_constraintStart_toStartOf="@+id/title_text"
+            app:layout_constraintTop_toBottomOf="@+id/title_text"
+            tools:text="A.T Akande" />
+
+        <TextView
+            android:id="@+id/publisher_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
+            android:paddingStart="@dimen/small_padding"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textStyle="bold"
+            android:typeface="serif"
+            app:bookPublisher="@{book.volumeInfo.publisher}"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/author_text"
+            app:layout_constraintStart_toStartOf="@+id/author_text"
+            app:layout_constraintTop_toBottomOf="@+id/author_text"
+            tools:text="Farm house press" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

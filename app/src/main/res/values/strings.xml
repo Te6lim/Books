@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Books</string>
+    <string name="search">Search</string>
+    <string name="networkText">nework failed!</string>
+</resources>
