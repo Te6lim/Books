@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.andyprojects.books.bookDetail.BookDetailFragment">
+
+    <data>
+        <variable
+            name="bookDetailViewModel"
+            type="com.andyprojects.books.bookDetail.BookDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/standard_padding">
+
+        <TextView
+            android:id="@+id/header_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            app:titleText="@{bookDetailViewModel.selectedBook.volumeInfo.title}"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/book_cover"
+            android:layout_width="120dp"
+            android:layout_height="196dp"
+            android:layout_marginTop="16dp"
+            app:bookCover="@{bookDetailViewModel.selectedBook.volumeInfo.imageLinks.thumbnail}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_text"
+            app:srcCompat="@mipmap/ic_image" />
+
+        <TextView
+            android:id="@+id/isbn_10_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/small_padding"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:isbnTen="@{bookDetailViewModel.selectedBook.volumeInfo.industryIdentifiers}"
+            app:layout_constraintBottom_toTopOf="@+id/isbn_13_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/isbn_10"
+            app:layout_constraintTop_toTopOf="@+id/book_cover" />
+
+        <TextView
+            android:id="@+id/isbn_13_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/small_padding"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:isbnThirteen="@{bookDetailViewModel.selectedBook.volumeInfo.industryIdentifiers}"
+            app:layout_constraintBottom_toTopOf="@+id/page_count_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/isbn_13"
+            app:layout_constraintTop_toBottomOf="@+id/isbn_10_text" />
+
+        <TextView
+            android:id="@+id/page_count_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/small_padding"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:pageCount="@{bookDetailViewModel.selectedBook.volumeInfo.pageCount}"
+            app:layout_constraintBottom_toTopOf="@+id/rating_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/page_count"
+            app:layout_constraintTop_toBottomOf="@+id/isbn_13_text" />
+
+        <TextView
+            android:id="@+id/rating_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/small_padding"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintBottom_toBottomOf="@+id/book_cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rating"
+            app:layout_constraintTop_toBottomOf="@+id/page_count_text" />
+
+        <TextView
+            android:id="@+id/isbn_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:padding="@dimen/small_padding"
+            android:text="@string/isbn_10"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/isbn_10_text"
+            app:layout_constraintStart_toEndOf="@+id/book_cover" />
+
+        <TextView
+            android:id="@+id/isbn_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:padding="@dimen/small_padding"
+            android:text="@string/isbn_13"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/isbn_13_text"
+            app:layout_constraintStart_toEndOf="@+id/book_cover" />
+
+        <TextView
+            android:id="@+id/page_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:padding="@dimen/small_padding"
+            android:text="@string/page_count"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/page_count_text"
+            app:layout_constraintStart_toEndOf="@+id/book_cover" />
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:padding="@dimen/small_padding"
+            android:text="@string/rating"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/rating_text"
+            app:layout_constraintStart_toEndOf="@+id/book_cover" />
+
+        <TextView
+            android:id="@+id/description_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/description"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/book_cover" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_header">
+
+            <TextView
+                android:id="@+id/description_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/small_margin"
+                app:description="@{bookDetailViewModel.selectedBook.volumeInfo.description}"/>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

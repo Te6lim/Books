@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Books</string>
     <string name="search">Search</string>
-    <string name="networkText">nework failed!</string>
+    <string name="networkText">network failed!</string>
+    <string name="isbn_10">ISBN 10:</string>
+    <string name="isbn_13">ISBN 13:</string>
+    <string name="page_count">Page count:</string>
+    <string name="rating">Rating:</string>
+    <string name="description">Description</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -21,6 +21,10 @@ class ShelfViewModel : ViewModel() {
     val status: LiveData<GoogleBooksApiStatus>
     get() = _status
 
+    private val _selectedBook = MutableLiveData<Book>()
+    val selectedBook: LiveData<Book>
+    get() = _selectedBook
+
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
@@ -40,6 +44,14 @@ class ShelfViewModel : ViewModel() {
                 _books.value = ArrayList()
             }
         }
+    }
+
+    fun selectBook(book: Book) {
+        _selectedBook.value = book
+    }
+
+    fun bookSelected() {
+        _selectedBook.value = null
     }
 
     override fun onCleared() {

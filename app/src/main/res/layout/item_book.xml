@@ -20,7 +20,7 @@
             android:layout_width="72dp"
             android:layout_height="120dp"
             android:scaleType="fitCenter"
-            app:imgUrl="@{book.volumeInfo.imageLinks.thumbnail}"
+            app:imgUrl="@{book.volumeInfo.imageLinks.smallThumbnail}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

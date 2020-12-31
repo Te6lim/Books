@@ -8,5 +8,19 @@
         android:id="@+id/shelfFragment"
         android:name="com.andyprojects.books.shelf.ShelfFragment"
         android:label="fragment_shelf"
-        tools:layout="@layout/fragment_shelf" />
+        tools:layout="@layout/fragment_shelf" >
+        <action
+            android:id="@+id/action_shelfFragment_to_bookDetailFragment"
+            app:destination="@id/bookDetailFragment"
+            app:popUpTo="@id/shelfFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookDetailFragment"
+        android:name="com.andyprojects.books.bookDetail.BookDetailFragment"
+        android:label="fragment_detail_book"
+        tools:layout="@layout/fragment_detail_book" >
+        <argument
+            android:name="selectedBook"
+            app:argType="com.andyprojects.books.network.Book" />
+    </fragment>
 </navigation>

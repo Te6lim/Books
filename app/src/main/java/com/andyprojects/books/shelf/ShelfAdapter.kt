@@ -10,7 +10,8 @@ import com.andyprojects.books.R
 import com.andyprojects.books.databinding.ItemBookBinding
 import com.andyprojects.books.network.Book
 
-class ShelfAdapter: ListAdapter<Book, ShelfAdapter.BookViewHolder>(DiffCallback) {
+class ShelfAdapter(private val onClickListener: OnClickListener)
+    : ListAdapter<Book, ShelfAdapter.BookViewHolder>(DiffCallback) {
 
     companion object DiffCallback: DiffUtil.ItemCallback<Book>() {
         override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean {
@@ -23,7 +24,8 @@ class ShelfAdapter: ListAdapter<Book, ShelfAdapter.BookViewHolder>(DiffCallback)
 
     }
 
-    inner class BookViewHolder(private val itemBookBinding: ItemBookBinding): RecyclerView.ViewHolder(itemBookBinding.root) {
+    inner class BookViewHolder(private val itemBookBinding: ItemBookBinding)
+        : RecyclerView.ViewHolder(itemBookBinding.root) {
         fun bind(book: Book) {
             itemBookBinding.book = book
         }
@@ -32,12 +34,21 @@ class ShelfAdapter: ListAdapter<Book, ShelfAdapter.BookViewHolder>(DiffCallback)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val itemBinding = DataBindingUtil
             .inflate<ItemBookBinding>(
-                LayoutInflater.from(parent.context), R.layout.item_book, parent, false
+                LayoutInflater
+                    .from(parent.context), R.layout.item_book, parent, false
             )
         return BookViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val book = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(book)
+        }
+        holder.bind(book)
+    }
+
+    class OnClickListener(val clickListener: (Book) -> Unit) {
+        fun onClick(book: Book) = clickListener(book)
     }
 }

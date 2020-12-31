@@ -17,6 +17,7 @@ class Book(
         val publisher: String?,
         val authors: Array<String?>?,
         val imageLinks: ImageLinks?,
+        val industryIdentifiers: Array<BookNum?>?,
         val description: String?,
         val pageCount: Int?
     ): Parcelable {
@@ -24,6 +25,12 @@ class Book(
         class ImageLinks(
             val smallThumbnail: String?,
             val thumbnail: String?
+        ): Parcelable
+
+        @Parcelize
+        class BookNum(
+            val type: String?,
+            val identifier: String?
         ): Parcelable
     }
 }

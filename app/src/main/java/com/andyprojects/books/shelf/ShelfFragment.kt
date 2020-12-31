@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +37,9 @@ class ShelfFragment: Fragment() {
         recyclerView = binding.booksList
 
         recyclerView.apply {
-            adapter = ShelfAdapter()
+            adapter = ShelfAdapter(ShelfAdapter.OnClickListener {
+                shelfViewModel.selectBook(it)
+            })
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
 
@@ -61,6 +64,12 @@ class ShelfFragment: Fragment() {
                     binding.failedScreen.visibility = View.GONE
                 }
             }
+        })
+
+        shelfViewModel.selectedBook.observe(viewLifecycleOwner, Observer {
+            findNavController()
+                .navigate(ShelfFragmentDirections
+                    .actionShelfFragmentToBookDetailFragment(it))
         })
 
         return binding.root
