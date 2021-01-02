@@ -67,9 +67,12 @@ class ShelfFragment: Fragment() {
         })
 
         shelfViewModel.selectedBook.observe(viewLifecycleOwner, Observer {
-            findNavController()
-                .navigate(ShelfFragmentDirections
-                    .actionShelfFragmentToBookDetailFragment(it))
+                it?.let {
+                    findNavController()
+                        .navigate(ShelfFragmentDirections
+                            .actionShelfFragmentToBookDetailFragment(it))
+                    shelfViewModel.bookSelected()
+                }
         })
 
         return binding.root

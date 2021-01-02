@@ -2,12 +2,14 @@ package com.andyprojects.books.bookDetail
 
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.andyprojects.books.R
 import com.andyprojects.books.network.Book
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import kotlin.math.floor
 
 @BindingAdapter("titleText")
 fun bindHeader(view: TextView, title: String?) {
@@ -15,16 +17,17 @@ fun bindHeader(view: TextView, title: String?) {
 }
 
 @BindingAdapter("isbnTen")
-fun bindIsbnTen(view: TextView, isbn: Array<Book.VolumeInfo.BookNum>?) {
+fun bindIsbnTen(view: TextView, isbn: Array<Book.VolumeInfo.BookNum?>?) {
     isbn?.let {
-        view.text = isbn[0].identifier
+        view.text = isbn[0]?.identifier
     }
 }
 
 @BindingAdapter("isbnThirteen")
-fun bindIsbnThirteen(view: TextView, isbn: Array<Book.VolumeInfo.BookNum>?) {
+fun bindIsbnThirteen(view: TextView, isbn: Array<Book.VolumeInfo.BookNum?>?) {
     isbn?.let {
-        view.text = isbn[1].identifier
+        if(it[1]!!.identifier!!.isNotEmpty())
+            view.text = it[1]?.identifier
     }
 }
 
@@ -44,6 +47,112 @@ fun bindCover(view: ImageView, url: String?) {
 fun bindPageCount(view: TextView, count: Int?) {
     count?.let {
         view.text = count.toString()
+    }
+}
+
+@BindingAdapter("starRating")
+fun bindRating(view: ConstraintLayout, rating: Double?) {
+    rating?.let {
+        val rem = (rating - floor(rating)) * 10
+        when(floor(rating).toInt()) {
+            1 -> {
+                if(rem >= 5) {
+                    view.findViewById<ImageView>(R.id.star_1)
+                        .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                    view.findViewById<ImageView>(R.id.star_2)
+                        .setImageDrawable(view.context.getDrawable(R.drawable.ic_star_half_black_24dp))
+                } else {
+                    view.findViewById<ImageView>(R.id.star_1)
+                        .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                }
+            }
+            2 -> {
+                if(rem >= 5) {
+                    view.apply {
+                        findViewById<ImageView>(R.id.star_1)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_2)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_3)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star_half_black_24dp))
+
+                    }
+                } else {
+                    view.apply {
+                        findViewById<ImageView>(R.id.star_1)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_2)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                    }
+                }
+            }
+            3 -> {
+                if(rem >= 5) {
+                    view.apply {
+                        findViewById<ImageView>(R.id.star_1)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_2)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_3)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_4)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star_half_black_24dp))
+                    }
+
+                } else {
+                    view.apply {
+                        findViewById<ImageView>(R.id.star_1)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_2)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_3)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                    }
+                }
+            }
+            4 -> {
+                if (rem >= 0) {
+                    view.apply {
+                        findViewById<ImageView>(R.id.star_1)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_2)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_3)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_4)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_4)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star_half_black_24dp))
+                    }
+                } else {
+                    view.apply {
+                        findViewById<ImageView>(R.id.star_1)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_2)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_3)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                        view.findViewById<ImageView>(R.id.star_4)
+                            .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                    }
+                }
+            }
+            5 -> {
+                view.apply {
+                    findViewById<ImageView>(R.id.star_1)
+                        .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                    view.findViewById<ImageView>(R.id.star_2)
+                        .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                    view.findViewById<ImageView>(R.id.star_3)
+                        .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                    view.findViewById<ImageView>(R.id.star_4)
+                        .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                    view.findViewById<ImageView>(R.id.star_5)
+                        .setImageDrawable(view.context.getDrawable(R.drawable.ic_star))
+                }
+            }
+            else -> {}
+        }
     }
 }
 

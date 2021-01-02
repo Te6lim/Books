@@ -16,6 +16,7 @@ class Book(
         val title: String?,
         val publisher: String?,
         val authors: Array<String?>?,
+        val averageRating: Double?,
         val imageLinks: ImageLinks?,
         val industryIdentifiers: Array<BookNum?>?,
         val description: String?,

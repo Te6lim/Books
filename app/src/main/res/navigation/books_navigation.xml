@@ -7,8 +7,8 @@
     <fragment
         android:id="@+id/shelfFragment"
         android:name="com.andyprojects.books.shelf.ShelfFragment"
-        android:label="fragment_shelf"
-        tools:layout="@layout/fragment_shelf" >
+        android:label="Books"
+        tools:layout="@layout/fragment_shelf">
         <action
             android:id="@+id/action_shelfFragment_to_bookDetailFragment"
             app:destination="@id/bookDetailFragment"
@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/bookDetailFragment"
         android:name="com.andyprojects.books.bookDetail.BookDetailFragment"
-        android:label="fragment_detail_book"
-        tools:layout="@layout/fragment_detail_book" >
+        android:label="Details"
+        tools:layout="@layout/fragment_detail_book">
         <argument
             android:name="selectedBook"
             app:argType="com.andyprojects.books.network.Book" />
