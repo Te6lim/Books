@@ -41,13 +41,37 @@ class ShelfFragment: Fragment() {
                 shelfViewModel.selectBook(it)
             })
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            addOnScrollListener(object: RecyclerView.OnScrollListener() {
+                var loading = true
+                var pastVisibleItems = 0
+                var visibleItemCount = 0
+                var totalItemCount = 0
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    if(dy > 0) {
+                        visibleItemCount = layoutManager.childCount
+                        totalItemCount = layoutManager.itemCount
+                        pastVisibleItems = layoutManager.findFirstVisibleItemPosition()
+
+                        if(loading) {
+                            if(visibleItemCount + pastVisibleItems >= totalItemCount) {
+                                loading = false
+                                shelfViewModel.getSearchKey()?.let { shelfViewModel.getBooks(it) }
+                                loading = true
+                            }
+                        }
+                    }
+                }
+            })
         }
 
         editSearch = binding.searchBar
         searchButton = binding.searchButton
         searchButton.setOnClickListener {
             if(editSearch.text.isNotEmpty()) {
-                shelfViewModel.getBooks(editSearch.text.toString())
+                val searchKey = editSearch.text.toString()
+                shelfViewModel.setSearchKey(searchKey)
+                shelfViewModel.getBooks(searchKey)
             } else Toast.makeText(
                 requireContext(), "No search entry", Toast.LENGTH_SHORT)
                 .show()
@@ -58,10 +82,15 @@ class ShelfFragment: Fragment() {
                 GoogleBooksApiStatus.ERROR -> {
                     recyclerView.visibility = View.GONE
                     binding.failedScreen.visibility = View.VISIBLE
+                    searchButton.isEnabled = true
+                }
+                GoogleBooksApiStatus.LOADING -> {
+                    searchButton.isEnabled = false
                 }
                 else -> {
                     recyclerView.visibility = View.VISIBLE
                     binding.failedScreen.visibility = View.GONE
+                    searchButton.isEnabled = true
                 }
             }
         })

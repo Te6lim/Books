@@ -13,6 +13,11 @@ import kotlinx.coroutines.launch
 enum class GoogleBooksApiStatus{ LOADING, ERROR, DONE }
 
 class ShelfViewModel : ViewModel() {
+
+    companion object {
+        const val MAX_RESULT = 40
+    }
+
     private val _books = MutableLiveData<List<Book>>()
     val books: LiveData<List<Book>>
     get() = _books
@@ -25,17 +30,26 @@ class ShelfViewModel : ViewModel() {
     val selectedBook: LiveData<Book>
     get() = _selectedBook
 
+    private var searchKey: String? = null
+
+    private var pageCount: Int = 0
+
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    fun getBooks(searchKey: String) {
+    fun getBooks(searchKey: String, startIndex: Int = pageCount * (MAX_RESULT + 1)) {
         coroutineScope.launch {
-            val getBooksDeferred = BooksAPi.retrofitService.getBooksAsync(searchKey)
+            val getBooksDeferred = BooksAPi.retrofitService
+                .getBooksAsync(searchKey, startIndex, MAX_RESULT)
             try {
                 _status.value = GoogleBooksApiStatus.LOADING
                 val library = getBooksDeferred.await()
                 if(library.items.isNotEmpty()) {
-                    _books.value = library.items
+                    val books: MutableList<Book> = ( _books.value as MutableList<Book> )
+                    for(book in library.items)
+                        books.add(book)
+                    _books.value = books
+                    ++pageCount
                     _status.value = GoogleBooksApiStatus.DONE
                 }
             }
@@ -45,6 +59,12 @@ class ShelfViewModel : ViewModel() {
             }
         }
     }
+
+    fun setSearchKey(key: String) {
+        searchKey = key
+    }
+
+    fun getSearchKey() = searchKey
 
     fun selectBook(book: Book) {
         _selectedBook.value = book

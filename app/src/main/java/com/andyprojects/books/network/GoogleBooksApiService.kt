@@ -25,7 +25,10 @@ private val retrofit = Retrofit.Builder()
 
 interface GoogleBooksApiService {
     @GET("volumes")
-    fun getBooksAsync(@Query("q") keyword: String, @Query("maxResults") max: Int = 40): Deferred<Library>
+    fun getBooksAsync(
+        @Query("q") keyword: String,
+        @Query("startIndex") start: Int,
+        @Query("maxResults") max: Int): Deferred<Library>
 }
 
 object BooksAPi {

@@ -17,18 +17,17 @@ fun bindHeader(view: TextView, title: String?) {
 }
 
 @BindingAdapter("isbnTen")
-fun bindIsbnTen(view: TextView, isbn: Array<Book.VolumeInfo.BookNum?>?) {
-    isbn?.let {
-        view.text = isbn[0]?.identifier
-    }
+fun bindIsbnTen(view: TextView, isbn: Array<Book.VolumeInfo.BookNum>?) {
+    isbn?.let { view.text = it[0].identifier }
 }
 
 @BindingAdapter("isbnThirteen")
-fun bindIsbnThirteen(view: TextView, isbn: Array<Book.VolumeInfo.BookNum?>?) {
+fun bindIsbnThirteen(view: TextView, isbn: Array<Book.VolumeInfo.BookNum>?) {
     isbn?.let {
-        if(it[1]!!.identifier!!.isNotEmpty())
-            view.text = it[1]?.identifier
-    }
+        view.text = if(it[0].identifier != it[it.lastIndex].identifier)
+            it[it.lastIndex].identifier
+        else " "
+        }
 }
 
 @BindingAdapter("bookCover")
