@@ -52,7 +52,6 @@
             android:layout_marginTop="4dp"
             android:background="@color/background_white"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:listData="@{viewModel.books}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

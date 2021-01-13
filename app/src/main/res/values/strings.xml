@@ -10,5 +10,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="search_books">Search books...</string>
+    <string name="search_books">Search books…</string>
+    <string name="search_by_title">Search by title</string>
+    <string name="search_by_author">Search by author</string>
+    <string name="search_by_publisher">Search by publisher</string>
+    <string name="search_by_isbn">Search by ISBN</string>
+    <string name="search_mode">Search Mode</string>
 </resources>

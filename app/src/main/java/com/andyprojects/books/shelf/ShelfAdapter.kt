@@ -3,15 +3,15 @@ package com.andyprojects.books.shelf
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.andyprojects.books.R
 import com.andyprojects.books.databinding.ItemBookBinding
 import com.andyprojects.books.network.Book
 
 class ShelfAdapter(private val onClickListener: OnClickListener)
-    : ListAdapter<Book, ShelfAdapter.BookViewHolder>(DiffCallback) {
+    : PagedListAdapter<Book, ShelfAdapter.BookViewHolder>(DiffCallback) {
 
     companion object DiffCallback: DiffUtil.ItemCallback<Book>() {
         override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean {
@@ -42,10 +42,12 @@ class ShelfAdapter(private val onClickListener: OnClickListener)
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = getItem(position)
-        holder.itemView.setOnClickListener {
-            onClickListener.onClick(book)
+        book?.let { bookItem ->
+            holder.itemView.setOnClickListener {
+                onClickListener.onClick(bookItem)
+            }
+            holder.bind(bookItem)
         }
-        holder.bind(book)
     }
 
     class OnClickListener(val clickListener: (Book) -> Unit) {
