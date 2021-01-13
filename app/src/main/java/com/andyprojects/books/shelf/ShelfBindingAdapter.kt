@@ -6,17 +6,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import com.andyprojects.books.R
-import com.andyprojects.books.network.Book
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-
-@BindingAdapter("listData")
-fun View.bindRecyclerView(booksData: List<Book>?) {
-    ((this as RecyclerView).adapter as ShelfAdapter)
-        .apply { booksData?.let { this.submitList(it) } }
-}
 
 @BindingAdapter("toast")
 fun View.toastBinding(stat: GoogleBooksApiStatus?) {

@@ -13,6 +13,8 @@ import retrofit2.http.Query
 
 private const val BASE_URL = "https://www.googleapis.com/books/v1/"
 private const val API_KEY = "AIzaSyCuNLEGUZyg-XiMiVeB72qsQP1ax82wvso/"
+private const val MAX_RESULT = 40
+
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
@@ -28,10 +30,11 @@ interface GoogleBooksApiService {
     fun getBooksAsync(
         @Query("q") keyword: String,
         @Query("startIndex") start: Int,
-        @Query("maxResults") max: Int): Deferred<Library>
+        @Query("maxResults") max: Int = MAX_RESULT
+    ): Deferred<Library>
 }
 
-object BooksAPi {
+object BooksApi {
     val retrofitService: GoogleBooksApiService by lazy {
         retrofit.create(GoogleBooksApiService::class.java)
     }
