@@ -9,7 +9,8 @@ class Book(
     val id: String?,
     val etag: String?,
     val selfLink: String?,
-    val volumeInfo: VolumeInfo?
+    val volumeInfo: VolumeInfo?,
+    val accessInfo: AccessInfo?
 ): Parcelable {
     @Parcelize
     class VolumeInfo(
@@ -30,8 +31,25 @@ class Book(
 
         @Parcelize
         class BookNum(
-            val type: String,
-            val identifier: String
+            val identifier: String?
+        ): Parcelable
+    }
+
+    @Parcelize
+    class AccessInfo(
+        val epub: Epub?,
+        val pdf: Pdf?
+    ): Parcelable {
+        @Parcelize
+        class Epub(
+            val isAvailable: Boolean?,
+            val acsTokenLink: String?
+        ): Parcelable
+
+        @Parcelize
+        class Pdf(
+            val isAvailable: Boolean?,
+            val acsTokenLink: String?
         ): Parcelable
     }
 }

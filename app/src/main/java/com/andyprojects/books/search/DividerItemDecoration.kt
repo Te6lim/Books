@@ -1,4 +1,4 @@
-package com.andyprojects.books.shelf
+package com.andyprojects.books.search
 
 import android.graphics.Canvas
 import android.graphics.Rect

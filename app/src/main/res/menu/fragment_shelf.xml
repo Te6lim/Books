@@ -2,27 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/search_mode"
-        android:title="@string/search_mode"
-        android:icon="@drawable/ic_search_by"
+        android:id="@+id/search_filter"
+        android:title="@string/search_filter"
+        android:icon="@drawable/ic_filter"
         app:showAsAction="always">
 
-        <item
-            android:id="@+id/search_by_title"
-            android:title="@string/search_by_title"
-            android:visible="true"/>
-        <item
-            android:id="@+id/search_by_author"
-            android:title="@string/search_by_author"
-            android:visible="true"/>
-        <item
-            android:id="@+id/search_by_publisher"
-            android:title="@string/search_by_publisher"
-            android:visible="true"/>
-        <item
-            android:id="@+id/search_by_isbn"
-            android:title="@string/search_by_isbn"
-            android:visible="true"/>
+        <menu>
+            <item
+                android:id="@+id/show_all"
+                android:title="@string/show_all"/>
+            <item
+                android:id="@+id/e_books"
+                android:title="@string/e_books"/>
+            <item
+                android:id="@+id/free_eBooks"
+                android:title="@string/free_ebooks"/>
+            <item
+                android:id="@+id/paid_eBooks"
+                android:title="@string/paid_ebooks"/>
+
+        </menu>
 
     </item>
 </menu>

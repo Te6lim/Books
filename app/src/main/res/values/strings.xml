@@ -15,5 +15,9 @@
     <string name="search_by_author">Search by author</string>
     <string name="search_by_publisher">Search by publisher</string>
     <string name="search_by_isbn">Search by ISBN</string>
-    <string name="search_mode">Search Mode</string>
+    <string name="search_filter">Search filter</string>
+    <string name="show_all">Show all</string>
+    <string name="e_books">E-books</string>
+    <string name="free_ebooks">free-ebooks</string>
+    <string name="paid_ebooks">paid-ebooks</string>
 </resources>

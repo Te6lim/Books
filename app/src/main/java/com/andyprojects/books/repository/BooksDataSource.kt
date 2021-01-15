@@ -4,14 +4,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.andyprojects.books.network.Book
 import com.andyprojects.books.network.BooksApi
-import com.andyprojects.books.shelf.GoogleBooksApiStatus
+import com.andyprojects.books.search.GoogleBooksApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
 class BooksDataSource(
     private val coroutineScope: CoroutineScope,
-    private val searchKey: String, private val status: MutableLiveData<GoogleBooksApiStatus>
+    private val searchKey: String,
+    private val filter: String?,
+    private val status: MutableLiveData<GoogleBooksApiStatus>
 ): PageKeyedDataSource<Int, Book>() {
 
     companion object {
@@ -24,8 +26,11 @@ class BooksDataSource(
         callback: LoadInitialCallback<Int, Book>
     ) {
         coroutineScope.launch {
-            val responseDeferred = BooksApi.retrofitService
-                .getBooksAsync(searchKey, FIRST_PAGE)
+            val responseDeferred =
+                if(filter != null) BooksApi.retrofitService
+                    .getBooksWithFilterAsync(searchKey, filter, FIRST_PAGE)
+            else BooksApi.retrofitService
+                    .getBooksAsync(searchKey, FIRST_PAGE)
             try {
                 status.value = GoogleBooksApiStatus.LOADING
                 val response = responseDeferred.await()
@@ -40,8 +45,11 @@ class BooksDataSource(
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Book>) {
         coroutineScope.launch {
-            val responseDeferred = BooksApi.retrofitService
-                .getBooksAsync(searchKey,params.key)
+            val responseDeferred =
+                if(filter != null) BooksApi.retrofitService
+                    .getBooksWithFilterAsync(searchKey, filter, FIRST_PAGE)
+                else BooksApi.retrofitService
+                    .getBooksAsync(searchKey, FIRST_PAGE)
             try {
                 status.value = GoogleBooksApiStatus.LOADING
                 val response = responseDeferred.await()
@@ -58,8 +66,11 @@ class BooksDataSource(
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Book>) {
         coroutineScope.launch {
-            val responseDeferred = BooksApi.retrofitService
-                .getBooksAsync(searchKey, params.key)
+            val responseDeferred =
+                if(filter != null) BooksApi.retrofitService
+                    .getBooksWithFilterAsync(searchKey, filter, FIRST_PAGE)
+                else BooksApi.retrofitService
+                    .getBooksAsync(searchKey, FIRST_PAGE)
             try {
                 status.value = GoogleBooksApiStatus.LOADING
                 val response = responseDeferred.await()

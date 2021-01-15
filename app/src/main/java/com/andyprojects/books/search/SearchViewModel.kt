@@ -1,4 +1,4 @@
-package com.andyprojects.books.shelf
+package com.andyprojects.books.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +14,7 @@ import kotlinx.coroutines.Job
 
 enum class GoogleBooksApiStatus{ LOADING, ERROR, DONE }
 
-class ShelfViewModel : ViewModel() {
+class SearchViewModel : ViewModel() {
 
     var books: LiveData<PagedList<Book>> = MutableLiveData()
 
@@ -22,15 +22,17 @@ class ShelfViewModel : ViewModel() {
     val status: LiveData<GoogleBooksApiStatus>
     get() = _status
 
-    private val _selectedBook = MutableLiveData<Book>()
-    val selectedBook: LiveData<Book>
+    private val _selectedBook = MutableLiveData<Book?>()
+    val selectedBook: LiveData<Book?>
     get() = _selectedBook
+
+    var currentSearchKey: String = String()
 
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    fun getBooks(searchKey: String) {
-        val booksDataSourceFactory = BooksDataSourceFactory(coroutineScope, searchKey, _status)
+    fun getBooks(searchKey: String, filter: String?) {
+        val booksDataSourceFactory = BooksDataSourceFactory(coroutineScope, searchKey, filter, _status)
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
             .setPageSize(BooksDataSource.PAGE_SIZE)

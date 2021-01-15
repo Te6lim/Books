@@ -1,4 +1,4 @@
-package com.andyprojects.books.shelf
+package com.andyprojects.books.search
 
 import android.view.View
 import android.widget.ImageView
@@ -6,8 +6,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
-import androidx.paging.PagedList
-import androidx.recyclerview.widget.RecyclerView
 import com.andyprojects.books.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions

@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.andyprojects.books.shelf.ShelfFragment">
+    tools:context="com.andyprojects.books.search.SearchFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="com.andyprojects.books.shelf.ShelfViewModel" />
+            type="com.andyprojects.books.search.SearchViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,8 +19,8 @@
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/small_padding"
             android:background="@color/background_white"
+            android:padding="@dimen/small_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -51,6 +51,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="4dp"
             android:background="@color/background_white"
+            android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,9 +61,9 @@
             tools:listitem="@layout/item_book" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/failed_screen"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:id="@+id/failed_screen"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

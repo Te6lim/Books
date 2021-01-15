@@ -1,4 +1,4 @@
-package com.andyprojects.books.shelf
+package com.andyprojects.books.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,8 +10,8 @@ import com.andyprojects.books.R
 import com.andyprojects.books.databinding.ItemBookBinding
 import com.andyprojects.books.network.Book
 
-class ShelfAdapter(private val onClickListener: OnClickListener)
-    : PagedListAdapter<Book, ShelfAdapter.BookViewHolder>(DiffCallback) {
+class SearchAdapter(private val onClickListener: OnClickListener)
+    : PagedListAdapter<Book, SearchAdapter.BookViewHolder>(DiffCallback) {
 
     companion object DiffCallback: DiffUtil.ItemCallback<Book>() {
         override fun areItemsTheSame(oldItem: Book, newItem: Book): Boolean {
